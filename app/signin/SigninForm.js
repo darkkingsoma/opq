@@ -12,13 +12,13 @@ export default function SigninForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (session) {
+    if (status === 'authenticated' && session) {
       router.push('/');
     }
-  }, [session, router]);
+  }, [status, session, router]);
 
   useEffect(() => {
     const error = searchParams.get('error');
